@@ -1,7 +1,7 @@
 import socket
 import time
 
-IP = '127.0.0.1'
+IP = '192.168.178.104'
 PORT = 5700
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
