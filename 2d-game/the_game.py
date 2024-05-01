@@ -82,8 +82,8 @@ def on_draw():
     if sensor.has_capability('accelerometer')and global_string!="rules.png" and global_string!="win.png" and global_string!="lose.png":
         square.x -= SENSOR_SENSITIVITY*float(sensor.get_value('accelerometer')['x'])
         square.y -= SENSOR_SENSITIVITY*float(sensor.get_value('accelerometer')['y'])
+        check_border()
         get_pixel_value(global_string, square.x, square.y)
-    check_border()
     square.draw()
 
 
