@@ -3,7 +3,7 @@ import socket
 import numpy as np
 import time
 
-IP = '192.168.178.104'
+IP = '127.0.0.1'
 PORT = 5700
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

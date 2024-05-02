@@ -18,22 +18,22 @@ START_Y = 10
 PLAYER_SIZE = 10
 global_string = "rules.png"
 
+background = pyglet.image.load(global_string)
+background = pyglet.sprite.Sprite(background)
 
 #still learning python and didnt know how to have mutable variables, chatgpt gave me this
 def change_global_string(new_value):
+    global background
     global global_string
     global_string = new_value
+    background = pyglet.image.load(global_string)
+    background = pyglet.sprite.Sprite(background)
 
 window = pyglet.window.Window(WINDOW_WIDTH, WINDOW_HEIGHT)
 square = shapes.Rectangle(x=START_X, y=START_Y, width=PLAYER_SIZE, height=PLAYER_SIZE, color=(255, 0, 0))
 square.anchor_x = PLAYER_SIZE//2
 square.anchor_y = PLAYER_SIZE//2
 
-
-def load_background(img):
-    background = pyglet.image.load(img)
-    background = pyglet.sprite.Sprite(background)
-    background.draw()
 
 #chatgpt for how to get pixel coordinates, this checks what color the player is on,
 # if its black he is lost, if its white he won, this mean maps can easily/quickly be drawn in paint
@@ -49,6 +49,7 @@ def get_pixel_value(image_path, x, y):
         change_global_string("lose.png")
         square.x = START_X
         square.y = START_Y
+
 
 @window.event
 def on_key_press(symbol, modifiers):
@@ -77,8 +78,10 @@ def check_border():
 @window.event
 def on_draw():
     window.clear()
-    load_background(global_string)
+    global background
+    background.draw()
     # I know its ugly D: checks if we have data and some level is running to get move square/start game
+    # AS: fixed that for you - don't load images from disk every frame
     if sensor.has_capability('accelerometer')and global_string!="rules.png" and global_string!="win.png" and global_string!="lose.png":
         square.x -= SENSOR_SENSITIVITY*float(sensor.get_value('accelerometer')['x'])
         square.y -= SENSOR_SENSITIVITY*float(sensor.get_value('accelerometer')['y'])
